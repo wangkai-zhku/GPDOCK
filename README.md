@@ -1,4 +1,4 @@
-# GPDOCK
+# GPDOCK  Operations Manual
 an effective tool for the docking of metalloproteins
 
 
@@ -19,7 +19,6 @@ Protein struture: (.pdb)
 Ligand struture: (.mol2)
 Obtaining the 3D structure of small molecules 
 or processing 2D structure by other software to obtain 3D structure.
-NOTE：It is better to remove the hydrogen atom in the ligand！！！
 For example：
 One of the method to obtain 3D structure through SMILES file by openbabel, the following steps can be implemented
 1. To obtain SMILES files, such as aaa.smi
@@ -28,6 +27,15 @@ obabel -i smi aaa.smi -O aaa.mol2 --gen3D -d
 3. To obtain more lower energy conformer
 obconformer 200 100 aaa.mol2 > ligand.mol2
  Or you can get more low-energy conformation through the confab module of openbabel
+
+NOTE：
+If the docking results cannot be obtained by using all-atom of ligand,
+ the following procedure can remove the hydrogen atoms in the ligands 
+to reduce the screening of docking results by steric hindrance
+
+./gb_heavy -LIG input.mol2
+
+This operation will obtain the file named heavy_lig.mol2, which contains the heavy atom information of  input.mol2.
 =========================
 
 =========================
@@ -41,12 +49,22 @@ MMM is a number between 1 and 10, each of which represents a metal ion:
 
 NNN is a number between 0 and 2, each of which represents the number of water molecules:
 
+If out.pdb is empty which means there is no proper docking pose,
+then the hydrogen atom in the ligand can be removed by gb_heavy
+and  repeat the docking process by heavy_lig.mol2
+
+./gb_heavy -LIG input.mol2
+
 For examples: 
  for Zinc metalloproteins:
         If you don't have to dock water molecules, you can do it in one of two forms:
        ./gpdock -PRO input.pdb  -LIG input.mol2 -ION 1 -HOH 0
         or
        ./gpdock -PRO input.pdb  -LIG input.mol2 -ION 1 
+
+       if you want to dock the heavy atoms of the ligand:
+       ./gb_heavy -LIG input.mol2
+       ./gpdock -PRO input.pdb  -LIG heavy_lig.mol2 -ION 1 
 
         If you want to dock 1 water molecule:
        ./gpdock -PRO input.pdb  -LIG input.mol2 -ION 1 -HOH 1

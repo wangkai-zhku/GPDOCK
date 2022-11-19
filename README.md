@@ -116,6 +116,26 @@ The format and docking results of the document are available for reference and t
 All  original files and docking results  can be obtained through the mailbox: wangkai@zhku.edu.cn.
 =======
 
+
+===============
+Visualization!!!!!!!
+
+Visualization of these docking result files:
+If MOE or PYMOL is used for visualization of output results, 
+which cannot distinguish multiple models in one PDB files, 
+it is necessary to save a separate file for each output docking result. 
+The gp_split is provided to split the output file, 
+"./gp_split -PDB out.pdb"
+If there are five docking results, five files will be obtained, 
+namely output_1.pdb, output_2.pdb, output_3.pdb, output_4.pdb, output_5.pdb.
+
+Therefore, MOE or PYMOL software can be used to visualize the docking results one by one.
+
+IF VMD is used!!!!!!!
+The step of gp_split is not required.
+
+===============
+
 License
 =======
 
